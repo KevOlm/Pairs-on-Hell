@@ -1,7 +1,6 @@
 extends Node
 
-var cardBack = preload("res://assets/Back.png")
-@onready var table4_4 = get_node('/root/table4_4/')
+@onready var table4_4 = $tablegrid
 var c1
 var c2
 var deck = Array()
@@ -9,6 +8,7 @@ var matchTimer = Timer.new()
 var flipTimer = Timer.new()
 
 func _ready():
+	print_tree_pretty()
 	fillDeck()
 	dealDeck()
 	setupTimers()
@@ -25,8 +25,8 @@ func setupTimers():
 func fillDeck():
 	var i = 1
 	var j = 1
-	while i < 6:
-		while j < 4:
+	while i < 5:
+		while j < 5:
 			deck.append(Card.new(i))
 			j += 1
 		j = 1
@@ -34,8 +34,8 @@ func fillDeck():
 
 func dealDeck():
 	var c = 0
-	while c < 15:
-		table4_4.get_node('tablegrid').add_child(deck[c])
+	while c < 16:
+		table4_4.add_child(deck[c])
 		c += 1
 
 func chooseCard(c):

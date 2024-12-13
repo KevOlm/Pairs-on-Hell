@@ -16,11 +16,14 @@ func _ready():
 func _init(val):
 	value = val
 	face = load("res://assets/"+str(value)+".png")
-	back = GameManager.cardBack
+	back = preload("res://assets/Back.png")
 	set_texture_normal(back)
 
 func _pressed():
-	GameManager.chooseCard(self)
+	var game_manager = get_parent().get_parent()
+	if game_manager:
+		game_manager.chooseCard(self)
+
 func flip():
 	if get_texture_normal() == back:
 		set_texture_normal(face)
