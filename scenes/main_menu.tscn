@@ -1,12 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkvlixk8atngq"]
+[gd_scene load_steps=10 format=3 uid="uid://bkvlixk8atngq"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_rqsoe"]
+
+[sub_resource type="SystemFont" id="SystemFont_plckt"]
+font_names = PackedStringArray("Joystix Monospace")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1s8ng"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_bottom_right = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsy8l"]
-bg_color = Color(0.207776, 0.137333, 0.299695, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_bottom_right = 2
 shadow_size = 5
+
+[sub_resource type="SystemFont" id="SystemFont_8b0gg"]
+font_names = PackedStringArray("Karmatic Arcade")
+
+[sub_resource type="Gradient" id="Gradient_4xs5o"]
+colors = PackedColorArray(0, 0, 0, 1, 0.144288, 0.00517479, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_easwh"]
+gradient = SubResource("Gradient_4xs5o")
+use_hdr = true
+
+[sub_resource type="Gradient" id="Gradient_s1ay8"]
+colors = PackedColorArray(0.144288, 0.00517479, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hyy56"]
+gradient = SubResource("Gradient_s1ay8")
+use_hdr = true
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -15,6 +45,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_rqsoe")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -23,7 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.380392, 0.0784314, 0.054902, 1)
+color = Color(0.141176, 0.00392157, 0, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -32,15 +63,76 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -114.5
-offset_top = -71.0
-offset_right = 114.5
-offset_bottom = 71.0
+offset_left = -147.0
+offset_top = -67.0
+offset_right = 153.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 15
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Start" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_plckt")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_1s8ng")
 theme_override_styles/normal = SubResource("StyleBoxFlat_dsy8l")
 text = "START"
+
+[node name="Modes" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_plckt")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_1s8ng")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dsy8l")
+disabled = true
+text = "GAME MODES"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_plckt")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_1s8ng")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dsy8l")
+text = "EXIT"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.108
+anchor_right = 1.0
+anchor_bottom = 0.108
+offset_top = 0.16
+offset_bottom = 99.16
+grow_horizontal = 2
+theme_override_fonts/font = SubResource("SystemFont_8b0gg")
+theme_override_font_sizes/font_size = 50
+text = "Pairs on Hell"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 225.0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_easwh")
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -228.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_hyy56")
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

@@ -13,11 +13,14 @@ func _ready():
 	set_ignore_texture_size(true)
 	set_stretch_mode(TextureButton.STRETCH_KEEP_ASPECT_CENTERED)
 
-func _init(val):
+func _init(val,val2):
 	value = val
 	face = load("res://assets/"+str(value)+".png")
 	back = preload("res://assets/Back.png")
-	set_texture_normal(back)
+	if val2 == 1:
+		set_texture_normal(back)
+	else:
+		set_texture_normal(face)
 
 func _pressed():
 	var game_manager = get_parent().get_parent()

@@ -1,6 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbllnrwg3lq6s"]
+[gd_scene load_steps=13 format=3 uid="uid://cbllnrwg3lq6s"]
 
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_m6d2t"]
+[ext_resource type="Texture2D" uid="uid://bqe3pm623mivb" path="res://assets/background.png" id="2_6x86q"]
+[ext_resource type="Texture2D" uid="uid://b4p0v10neafsx" path="res://assets/Mammon.png" id="2_gg288"]
+[ext_resource type="Texture2D" uid="uid://cncbdjowu6tud" path="res://assets/1.png" id="4_61rej"]
+[ext_resource type="Texture2D" uid="uid://chy6uvpkfrocg" path="res://assets/2.png" id="5_u4j84"]
+[ext_resource type="Texture2D" uid="uid://btopifhnvfet4" path="res://assets/3.png" id="6_7x4hg"]
+
+[sub_resource type="Gradient" id="Gradient_645e0"]
+colors = PackedColorArray(0, 0, 0, 1, 0.144288, 0.00517479, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6svfl"]
+gradient = SubResource("Gradient_645e0")
+use_hdr = true
+
+[sub_resource type="Gradient" id="Gradient_pkaqq"]
+colors = PackedColorArray(0.144288, 0.00517479, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_44iad"]
+gradient = SubResource("Gradient_pkaqq")
+use_hdr = true
+
+[sub_resource type="SystemFont" id="SystemFont_88tvj"]
+font_names = PackedStringArray("Joystix Monospace")
+
+[sub_resource type="Theme" id="Theme_58dmx"]
+default_font = SubResource("SystemFont_88tvj")
 
 [node name="table4_4" type="Control"]
 layout_mode = 3
@@ -11,24 +36,142 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m6d2t")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="TextureRect2" type="TextureRect" parent="."]
+texture_filter = 1
+texture_repeat = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0682755, 0.017553, 0.0090467, 1)
+texture = ExtResource("2_6x86q")
+stretch_mode = 6
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 225.0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_6svfl")
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -228.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_44iad")
 
 [node name="tablegrid" type="GridContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 148.0
-offset_top = 45.0
-offset_right = -148.0
-offset_bottom = -49.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -128.0
+offset_right = 152.0
+offset_bottom = 172.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.0
+offset_top = 16.0
+offset_right = 70.0
+offset_bottom = 156.0
+grow_horizontal = 2
+texture = ExtResource("2_gg288")
+stretch_mode = 5
+
+[node name="CardOptions4" type="Popup" parent="."]
+initial_position = 2
+size = Vector2i(450, 150)
+content_scale_mode = 1
+content_scale_aspect = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardOptions4"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="club" type="TextureButton" parent="CardOptions4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_61rej")
+stretch_mode = 6
+
+[node name="spade" type="TextureButton" parent="CardOptions4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("5_u4j84")
+stretch_mode = 6
+
+[node name="heart" type="TextureButton" parent="CardOptions4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("6_7x4hg")
+stretch_mode = 6
+
+[node name="Players_Life" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -289.0
+offset_top = -102.0
+offset_right = 289.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_58dmx")
+theme_override_constants/separation = 0
+
+[node name="Player" type="VBoxContainer" parent="Players_Life"]
+layout_mode = 2
+size_flags_horizontal = 7
+size_flags_vertical = 5
+
+[node name="Title" type="Label" parent="Players_Life/Player"]
+layout_mode = 2
+text = "PLAYER LIFE"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="Players_Life/Player"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "##"
+horizontal_alignment = 1
+vertical_alignment = 3
+
+[node name="Opponent" type="VBoxContainer" parent="Players_Life"]
+layout_mode = 2
+size_flags_horizontal = 7
+
+[node name="Title" type="Label" parent="Players_Life/Opponent"]
+layout_mode = 2
+text = "OPPONENT LIFE"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="Players_Life/Opponent"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "##"
+horizontal_alignment = 1

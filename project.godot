@@ -11,14 +11,20 @@ config_version=5
 [application]
 
 config/name="Pairs on Hell"
-run/main_scene="res://scenes/table_4_4.tscn"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://assets/ScreenInit.png"
+boot_splash/use_filter=false
+config/icon="res://assets/image1.svg"
+boot_splash/minimum_display_time=2000
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=480
+window/size/viewport_width=1024
+window/size/viewport_height=576
+window/size/mode=2
+window/stretch/mode="viewport"
 
 [editor]
 
