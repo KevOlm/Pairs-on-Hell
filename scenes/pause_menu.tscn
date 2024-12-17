@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=3 uid="uid://djgk3ehy4e8a0"]
+
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_l0tg3"]
+[ext_resource type="Texture2D" uid="uid://tdg0bpt5stdy" path="res://assets/DevLogo.png" id="1_sweh8"]
+
+[sub_resource type="SystemFont" id="SystemFont_tx8es"]
+font_names = PackedStringArray("Joystix Monospace")
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjl2u"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_bottom_right = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e53si"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_bottom_right = 2
+shadow_size = 5
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l0tg3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = -142.0
+offset_right = 126.0
+offset_bottom = 158.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.10185, 0.0126927, 0, 0.862745)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -26.0
+offset_right = 97.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Continue" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_tx8es")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_cjl2u")
+theme_override_styles/normal = SubResource("StyleBoxFlat_e53si")
+text = "CONTINUE"
+
+[node name="Exit Game" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_tx8es")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_cjl2u")
+theme_override_styles/normal = SubResource("StyleBoxFlat_e53si")
+text = "EXIT GAME"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.499
+anchor_top = 0.281
+anchor_right = 0.5
+anchor_bottom = 0.281
+offset_left = -46.976
+offset_top = 0.143982
+offset_right = 46.0
+offset_bottom = 54.144
+grow_horizontal = 2
+texture = ExtResource("1_sweh8")
+stretch_mode = 5
+
+[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit Game" to="." method="_on_exit_game_pressed"]

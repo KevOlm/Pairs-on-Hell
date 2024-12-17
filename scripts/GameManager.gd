@@ -1,5 +1,6 @@
 extends Node
 
+@onready var pausemenu = $CanvasLayer
 @onready var table4_4 = $tablegrid
 @onready var opponent = $Players_Life/Opponent/Score
 @onready var player = $Players_Life/Player/Score
@@ -13,7 +14,7 @@ var flipTimer = Timer.new()
 var opponent_life = 3
 var player_life = 3
 var turn = true
-
+var paused = false
 
 func _ready():
 	fillDeck()
@@ -134,3 +135,16 @@ func matchCardsAndScore():
 	c2.set_modulate(Color(0.6,0.6,0.6,0.5))
 	c1 = null
 	c2 = null
+
+func _process(delta):
+	if Input.is_action_just_pressed("quit"):
+		pauseMenu()
+
+func pauseMenu():
+	if paused:
+		pausemenu.hide()
+		get_tree().paused = false
+	else:
+		pausemenu.show()
+		get_tree().paused = true
+	paused = !paused

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cbllnrwg3lq6s"]
+[gd_scene load_steps=14 format=3 uid="uid://cbllnrwg3lq6s"]
 
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_m6d2t"]
 [ext_resource type="Texture2D" uid="uid://bqe3pm623mivb" path="res://assets/background.png" id="2_6x86q"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cncbdjowu6tud" path="res://assets/1.png" id="4_61rej"]
 [ext_resource type="Texture2D" uid="uid://chy6uvpkfrocg" path="res://assets/2.png" id="5_u4j84"]
 [ext_resource type="Texture2D" uid="uid://btopifhnvfet4" path="res://assets/3.png" id="6_7x4hg"]
+[ext_resource type="PackedScene" uid="uid://djgk3ehy4e8a0" path="res://scenes/pause_menu.tscn" id="7_ofre3"]
 
 [sub_resource type="Gradient" id="Gradient_645e0"]
 colors = PackedColorArray(0, 0, 0, 1, 0.144288, 0.00517479, 0, 1)
@@ -175,3 +176,9 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
 text = "##"
 horizontal_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_ofre3")]
+process_mode = 3
