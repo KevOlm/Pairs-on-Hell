@@ -188,4 +188,3 @@ process_mode = 3
 visible = false
 
 [node name="GameOver" parent="GameOver" instance=ExtResource("8_xs1hi")]
-process_mode = 3

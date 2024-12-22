@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4s1t1i8nb8vg"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_n6u7h"]
+
+[sub_resource type="SystemFont" id="SystemFont_7l3u8"]
+font_names = PackedStringArray("Joystix Monospace")
+
+[sub_resource type="SystemFont" id="SystemFont_jpncb"]
+font_names = PackedStringArray("Joystix Monospace")
+
+[sub_resource type="Theme" id="Theme_15guq"]
+default_font = SubResource("SystemFont_jpncb")
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n6u7h")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -169.0
+offset_top = -97.0
+offset_right = 178.0
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.170878, 0.00967501, 1.8049e-08, 1)
+
+[node name="Winner" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = -75.0
+offset_right = 132.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("SystemFont_7l3u8")
+theme_override_font_sizes/font_size = 25
+text = "PLAYER WINS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = 12.0
+offset_right = 95.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_15guq")
+theme_override_constants/separation = 5
+
+[node name="Restart" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "RESTART"
+
+[node name="MainMenu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "MAIN MENU"
+
+[connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

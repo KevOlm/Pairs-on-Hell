@@ -1,20 +1,24 @@
 extends Node
 
-@onready var pausemenu = $CanvasLayer
+@onready var pausemenu = $PauseMenu
 @onready var table4_4 = $tablegrid
 @onready var opponent = $Players_Life/Opponent/Score
 @onready var player = $Players_Life/Player/Score
+@onready var gameover = $GameOver
+@onready var gameovermenu = $GameOver/GameOver
 var c1
 var c2
 var deck = Array()
 var deckposition = []
 var random = RandomNumberGenerator.new()
+var opponentTimer = Timer.new()
 var matchTimer = Timer.new()
 var flipTimer = Timer.new()
 var opponent_life = 3
 var player_life = 3
 var turn = true
-var paused = false
+var paused_menu = false
+var game_no_cards = 0
 
 func _ready():
 	fillDeck()
@@ -32,6 +36,10 @@ func setupTimers():
 	matchTimer.connect("timeout", Callable(self, "matchCardsAndScore"))
 	matchTimer.set_one_shot(true)
 	add_child(matchTimer)
+	
+	opponentTimer.connect("timeout", Callable(self, "opponentTurn"))
+	opponentTimer.set_one_shot(true)
+	add_child(opponentTimer)
 
 func fillDeck():
 	var cardrepeat = 0
@@ -63,9 +71,16 @@ func opponentTurn():
 		if a.disabled:
 			pass
 		else:
-			a._pressed()
+			a.flip()
+			if count == 0:
+				c1 = a
+				c1.set_disabled(true)
+			else:
+				c2 = a
+				c2.set_disabled(true)
 			count+=1
 	turn = false
+	checkCards()
 
 func chooseCard(c):
 	if c1 == null:
@@ -81,29 +96,54 @@ func chooseCard(c):
 func checkCards():
 	if c1.value == c2.value:
 		matchTimer.start(0.7)
+		game_no_cards += 1
 		PowerCard(c1.value)
 	else:
 		flipTimer.start(0.7)
 	if turn:
-		opponentTurn()
+		opponentTimer.start(0.9)
 	else:
 		turn = true
+	gameOver()
+
+func gameOver():
+	if game_no_cards==8 or player_life==0 or opponent_life==0:
+		gameover.show()
+		if player_life >= opponent_life:
+			gameovermenu.winner("Player Wins")
+		else:
+			gameovermenu.winner("CPU Wins")
 
 func PowerCard(value):
 	match value:
 		1:
-			pass
+			if turn:
+				turn = false
+			else:
+				turn = true
+				opponentTimer.start(0.9)
 		2:
-			opponent_life -= 1
-			opponent.text = str(opponent_life)
+			if turn:
+				opponent_life -= 1
+				opponent.text = str(opponent_life)
+			else:
+				player_life -= 1
+				player.text = str(player_life)
 		3:
-			player_life +=1
-			player.text = str(player_life)
+			if turn:
+				player_life +=1
+				player.text = str(player_life)
+			else:
+				opponent_life += 1
+				opponent.text = str(opponent_life)
 		4:
-			CardOptions4pop()
+			if turn:
+				CardOptions4pop()
+			else:
+				PowerCard(random.randi_range(1,3))
+	get_tree().paused = false
 
 func CardOptions4():
-	$CardOptions4.exclusive = true
 	var container = $CardOptions4/HBoxContainer
 	for button in container.get_children():
 		if button is TextureButton:
@@ -141,10 +181,10 @@ func _process(delta):
 		pauseMenu()
 
 func pauseMenu():
-	if paused:
+	if paused_menu:
 		pausemenu.hide()
 		get_tree().paused = false
 	else:
 		pausemenu.show()
 		get_tree().paused = true
-	paused = !paused
+	paused_menu = !paused_menu
