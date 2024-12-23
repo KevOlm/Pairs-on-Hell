@@ -163,7 +163,6 @@ theme_override_fonts/font = SubResource("SystemFont_plckt")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("StyleBoxFlat_1s8ng")
 theme_override_styles/normal = SubResource("StyleBoxFlat_dsy8l")
-disabled = true
 text = "GAME MODES"
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
@@ -212,4 +211,5 @@ texture = SubResource("GradientTexture2D_hyy56")
 
 [connection signal="animation_finished" from="Transition" to="." method="_on_transition_animation_finished"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Modes" to="." method="_on_modes_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

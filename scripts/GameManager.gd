@@ -1,7 +1,7 @@
 extends Node
 
 @onready var pausemenu = $PauseMenu
-@onready var table4_4 = $tablegrid
+@onready var tablex_x = $tablegrid
 @onready var opponent = $Players_Life/Opponent/Score
 @onready var player = $Players_Life/Player/Score
 @onready var gameover = $GameOver
@@ -9,7 +9,6 @@ extends Node
 var c1
 var c2
 var deck = Array()
-var deckposition = []
 var random = RandomNumberGenerator.new()
 var opponentTimer = Timer.new()
 var matchTimer = Timer.new()
@@ -44,30 +43,69 @@ func setupTimers():
 func fillDeck():
 	var cardrepeat = 0
 	var randomnum
-	deckposition.resize(16)
-	for cardnum in range(1,5):
-		while cardrepeat < 4:
-			randomnum = random.randi_range(0,15)
-			if deckposition[randomnum] == null:
-				deckposition[randomnum] = cardnum
-				cardrepeat+=1
-		cardrepeat = 0
-	for i in 16:
-		deck.append(Card.new(deckposition[i],1))
+	match get_tree().current_scene.name:
+		"table4_4":
+			deck.resize(16)
+			for cardnum in range(1,5):
+				while cardrepeat < 4:
+					randomnum = random.randi_range(0,15)
+					if deck[randomnum] == null:
+						deck[randomnum] = Card.new(cardnum,1)
+						cardrepeat+=1
+				cardrepeat = 0
+		"table6_4":
+			deck.resize(24)
+			for cardnum in range(1,6):
+				match cardnum:
+					4:
+						cardrepeat = 2
+					5:
+						cardrepeat = 4
+				while cardrepeat < 6:
+					randomnum = random.randi_range(0,23)
+					if deck[randomnum] == null:
+						deck[randomnum] = Card.new(cardnum,1)
+						cardrepeat+=1
+				cardrepeat = 0
+		"table8_5":
+			deck.resize(40)
+			for cardnum in range(1,6):
+				while cardrepeat < 8:
+					randomnum = random.randi_range(0,39)
+					if deck[randomnum] == null:
+						deck[randomnum] = Card.new(cardnum,1)
+						cardrepeat+=1
+				cardrepeat = 0
 
 func dealDeck():
 	var c = 0
-	while c < 16:
-		table4_4.add_child(deck[c])
-		c += 1
+	match get_tree().current_scene.name:
+		"table4_4":
+			while c < 16:
+				tablex_x.add_child(deck[c])
+				c += 1
+		"table6_4":
+			while c < 24:
+				tablex_x.add_child(deck[c])
+				c += 1
+		"table8_5":
+			while c < 40:
+				tablex_x.add_child(deck[c])
+				c += 1
 
 func opponentTurn():
 	var a
 	var count = 0
 	var val
 	while count < 2:
-		val = random.randi_range(0,15)
-		a = table4_4.get_child(val)
+		match get_tree().current_scene.name:
+			"table4_4":
+				val = random.randi_range(0,15)
+			"table6_4":
+				val = random.randi_range(0,23)
+			"table8_5":
+				val = random.randi_range(0,39)
+		a = tablex_x.get_child(val)
 		if a.disabled:
 			pass
 		else:
@@ -107,12 +145,27 @@ func checkCards():
 	gameOver()
 
 func gameOver():
-	if game_no_cards==8 or player_life==0 or opponent_life==0:
-		gameover.show()
-		if player_life >= opponent_life:
-			gameovermenu.winner("Player Wins")
-		else:
-			gameovermenu.winner("CPU Wins")
+	match get_tree().current_scene.name:
+		"table4_4":
+			if game_no_cards==8:
+				gameOverMenu()
+		"table6_4":
+			if game_no_cards==12:
+				gameOverMenu()
+		"table8_5":
+			if game_no_cards==20:
+				gameOverMenu()
+		_:
+			pass
+	if player_life==0 or opponent_life==0:
+		gameOverMenu()
+
+func gameOverMenu():
+	gameover.show()
+	if player_life >= opponent_life:
+		gameovermenu.winner("Player Wins")
+	else:
+		gameovermenu.winner("CPU Wins")
 
 func PowerCard(value):
 	match value:
@@ -141,7 +194,8 @@ func PowerCard(value):
 				CardOptions4pop()
 			else:
 				PowerCard(random.randi_range(1,3))
-	get_tree().paused = false
+		5:
+			pass
 
 func CardOptions4():
 	var container = $CardOptions4/HBoxContainer
@@ -151,6 +205,7 @@ func CardOptions4():
 
 func CardOptions4pop():
 	$CardOptions4.popup_centered(Vector2(450, 150))
+	get_tree().paused = true
 
 func pressed_action(b):
 	match b:
@@ -160,6 +215,7 @@ func pressed_action(b):
 			PowerCard(2)
 		"heart":
 			PowerCard(3)
+	get_tree().paused = false
 	$CardOptions4.hide()
 
 func turnOverCards():
@@ -176,7 +232,7 @@ func matchCardsAndScore():
 	c1 = null
 	c2 = null
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("quit"):
 		pauseMenu()
 

@@ -1,0 +1,108 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlywks8rievmy"]
+
+[ext_resource type="Texture2D" uid="uid://dx5nsj3h1lkmh" path="res://assets/Back.png" id="1_ac8ty"]
+[ext_resource type="Script" path="res://scripts/game_modes.gd" id="1_txtj5"]
+
+[sub_resource type="Gradient" id="Gradient_2lsn6"]
+offsets = PackedFloat32Array(0, 0.32973, 0.686486, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.235543, 0.028682, 0, 1, 0.235294, 0.027451, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pnmhw"]
+gradient = SubResource("Gradient_2lsn6")
+
+[sub_resource type="SystemFont" id="SystemFont_c38uo"]
+font_names = PackedStringArray("Joystix Monospace")
+
+[sub_resource type="Theme" id="Theme_2pnx5"]
+default_font = SubResource("SystemFont_c38uo")
+
+[node name="GameModes" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_txtj5")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_pnmhw")
+expand_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.0
+offset_top = -140.0
+offset_right = 348.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_2pnx5")
+theme_override_constants/separation = 20
+
+[node name="4_4" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Start4_4" type="TextureButton" parent="HBoxContainer/4_4"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("1_ac8ty")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="HBoxContainer/4_4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "4x4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="6_4" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Start6_4" type="TextureButton" parent="HBoxContainer/6_4"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("1_ac8ty")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="HBoxContainer/6_4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "6x4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="8_5" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Start8_5" type="TextureButton" parent="HBoxContainer/8_5"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("1_ac8ty")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="HBoxContainer/8_5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "8x5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/4_4/Start4_4" to="." method="_on_start_4_4_pressed"]
+[connection signal="pressed" from="HBoxContainer/6_4/Start6_4" to="." method="_on_start_6_4_pressed"]
+[connection signal="pressed" from="HBoxContainer/8_5/Start8_5" to="." method="_on_start_8_5_pressed"]

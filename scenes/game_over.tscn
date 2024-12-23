@@ -4,9 +4,11 @@
 
 [sub_resource type="SystemFont" id="SystemFont_7l3u8"]
 font_names = PackedStringArray("Joystix Monospace")
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_jpncb"]
 font_names = PackedStringArray("Joystix Monospace")
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_15guq"]
 default_font = SubResource("SystemFont_jpncb")

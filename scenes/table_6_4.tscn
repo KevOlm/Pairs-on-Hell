@@ -1,20 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://cbllnrwg3lq6s"]
+[gd_scene load_steps=13 format=3 uid="uid://c7cylj1t0xbbx"]
 
-[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_m6d2t"]
-[ext_resource type="Texture2D" uid="uid://bqe3pm623mivb" path="res://assets/background.png" id="2_6x86q"]
-[ext_resource type="Texture2D" uid="uid://b4p0v10neafsx" path="res://assets/Mammon.png" id="2_gg288"]
-[ext_resource type="Texture2D" uid="uid://cncbdjowu6tud" path="res://assets/1.png" id="4_61rej"]
-[ext_resource type="Texture2D" uid="uid://chy6uvpkfrocg" path="res://assets/2.png" id="5_u4j84"]
-[ext_resource type="Texture2D" uid="uid://btopifhnvfet4" path="res://assets/3.png" id="6_7x4hg"]
-[ext_resource type="PackedScene" uid="uid://djgk3ehy4e8a0" path="res://scenes/pause_menu.tscn" id="7_ofre3"]
-[ext_resource type="PackedScene" uid="uid://c4s1t1i8nb8vg" path="res://scenes/game_over.tscn" id="8_xs1hi"]
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_tfmha"]
+[ext_resource type="Texture2D" uid="uid://bqe3pm623mivb" path="res://assets/background.png" id="2_0i5so"]
+[ext_resource type="Texture2D" uid="uid://b4p0v10neafsx" path="res://assets/Mammon.png" id="3_fuhjk"]
+[ext_resource type="Texture2D" uid="uid://cncbdjowu6tud" path="res://assets/1.png" id="4_t3guu"]
+[ext_resource type="Texture2D" uid="uid://chy6uvpkfrocg" path="res://assets/2.png" id="5_n8ill"]
+[ext_resource type="Texture2D" uid="uid://btopifhnvfet4" path="res://assets/3.png" id="6_jrn6m"]
+[ext_resource type="PackedScene" uid="uid://djgk3ehy4e8a0" path="res://scenes/pause_menu.tscn" id="7_xxqia"]
+[ext_resource type="PackedScene" uid="uid://c4s1t1i8nb8vg" path="res://scenes/game_over.tscn" id="8_ktmew"]
 
-[sub_resource type="Gradient" id="Gradient_eik7i"]
+[sub_resource type="Gradient" id="Gradient_dvro2"]
 offsets = PackedFloat32Array(0, 0.32973, 0.686486, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.235543, 0.028682, 0, 1, 0.235294, 0.027451, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tname"]
-gradient = SubResource("Gradient_eik7i")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ff7a6"]
+gradient = SubResource("Gradient_dvro2")
 
 [sub_resource type="SystemFont" id="SystemFont_88tvj"]
 font_names = PackedStringArray("Joystix Monospace")
@@ -22,14 +22,14 @@ font_names = PackedStringArray("Joystix Monospace")
 [sub_resource type="Theme" id="Theme_58dmx"]
 default_font = SubResource("SystemFont_88tvj")
 
-[node name="table4_4" type="Control"]
+[node name="table6_4" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_m6d2t")
+script = ExtResource("1_tfmha")
 
 [node name="ColorRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -38,7 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_tname")
+texture = SubResource("GradientTexture2D_ff7a6")
 expand_mode = 3
 
 [node name="TextureRect2" type="TextureRect" parent="."]
@@ -53,7 +53,7 @@ offset_left = -306.0
 offset_right = 306.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_6x86q")
+texture = ExtResource("2_0i5so")
 stretch_mode = 6
 
 [node name="tablegrid" type="GridContainer" parent="."]
@@ -63,13 +63,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -148.0
+offset_left = -228.0
 offset_top = -128.0
-offset_right = 152.0
+offset_right = 232.0
 offset_bottom = 172.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 4
+columns = 6
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -81,7 +81,7 @@ offset_top = 16.0
 offset_right = 70.0
 offset_bottom = 156.0
 grow_horizontal = 2
-texture = ExtResource("2_gg288")
+texture = ExtResource("3_fuhjk")
 stretch_mode = 5
 
 [node name="CardOptions4" type="Popup" parent="."]
@@ -102,19 +102,19 @@ grow_vertical = 2
 [node name="club" type="TextureButton" parent="CardOptions4/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("4_61rej")
+texture_normal = ExtResource("4_t3guu")
 stretch_mode = 6
 
 [node name="spade" type="TextureButton" parent="CardOptions4/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("5_u4j84")
+texture_normal = ExtResource("5_n8ill")
 stretch_mode = 6
 
 [node name="heart" type="TextureButton" parent="CardOptions4/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("6_7x4hg")
+texture_normal = ExtResource("6_jrn6m")
 stretch_mode = 6
 
 [node name="Players_Life" type="HBoxContainer" parent="."]
@@ -169,11 +169,11 @@ horizontal_alignment = 1
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="PauseMenu" parent="PauseMenu" instance=ExtResource("7_ofre3")]
+[node name="PauseMenu" parent="PauseMenu" instance=ExtResource("7_xxqia")]
 process_mode = 3
 
 [node name="GameOver" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="GameOver" parent="GameOver" instance=ExtResource("8_xs1hi")]
+[node name="GameOver" parent="GameOver" instance=ExtResource("8_ktmew")]
 process_mode = 3
