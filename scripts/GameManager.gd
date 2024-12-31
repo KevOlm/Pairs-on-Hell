@@ -2,10 +2,11 @@ extends Node
 
 @onready var pausemenu = $PauseMenu
 @onready var tablex_x = $tablegrid
-@onready var opponent = $Players_Life/Opponent/Score
-@onready var player = $Players_Life/Player/Score
+@onready var opponent = $Opponent/Score
+@onready var player = $Player/Score
 @onready var gameover = $GameOver
 @onready var gameovermenu = $GameOver/GameOver
+@onready var powerups = $CardOptions4
 var c1
 var c2
 var deck = Array()
@@ -13,8 +14,9 @@ var random = RandomNumberGenerator.new()
 var opponentTimer = Timer.new()
 var matchTimer = Timer.new()
 var flipTimer = Timer.new()
-var opponent_life = 3
-var player_life = 3
+var rouletteTimer = Timer.new()
+var opponent_life = 0
+var player_life = 0
 var turn = true
 var paused_menu = false
 var game_no_cards = 0
@@ -23,22 +25,25 @@ func _ready():
 	fillDeck()
 	dealDeck()
 	setupTimers()
-	player.text = str(player_life)
-	opponent.text = str(opponent_life)
+	playersLife()
 	CardOptions4()
 
 func setupTimers():
-	flipTimer.connect("timeout", Callable(self, "turnOverCards"))
+	flipTimer.connect("timeout", Callable(self, "flipCards"))
 	flipTimer.set_one_shot(true)
 	add_child(flipTimer)
 	
-	matchTimer.connect("timeout", Callable(self, "matchCardsAndScore"))
+	matchTimer.connect("timeout", Callable(self, "matchCards"))
 	matchTimer.set_one_shot(true)
 	add_child(matchTimer)
 	
 	opponentTimer.connect("timeout", Callable(self, "opponentTurn"))
 	opponentTimer.set_one_shot(true)
 	add_child(opponentTimer)
+	
+	rouletteTimer.connect("timeout", Callable(self, "rouletteShot"))
+	rouletteTimer.set_one_shot(true)
+	add_child(rouletteTimer)
 
 func fillDeck():
 	var cardrepeat = 0
@@ -93,6 +98,20 @@ func dealDeck():
 				tablex_x.add_child(deck[c])
 				c += 1
 
+func playersLife():
+	var c
+	match get_tree().current_scene.name:
+		"table4_4":
+			c = 3
+		"table6_4":
+			c = 5
+		"table8_5":
+			c = 10
+	player_life = c
+	player.text = str(player_life)
+	opponent_life = c
+	opponent.text = str(opponent_life)
+
 func opponentTurn():
 	var a
 	var count = 0
@@ -132,12 +151,13 @@ func chooseCard(c):
 		checkCards()
 
 func checkCards():
-	if c1.value == c2.value:
-		matchTimer.start(0.7)
-		game_no_cards += 1
-		PowerCard(c1.value)
-	else:
-		flipTimer.start(0.7)
+	if c1!=null and c2!=null:
+		if c1.value == c2.value:
+			matchTimer.start(0.7)
+			game_no_cards += 1
+			PowerCard(c1.value)
+		else:
+			flipTimer.start(0.7)
 	if turn:
 		opponentTimer.start(0.9)
 	else:
@@ -165,11 +185,12 @@ func gameOverMenu():
 	if player_life >= opponent_life:
 		gameovermenu.winner("Player Wins")
 	else:
-		gameovermenu.winner("CPU Wins")
+		gameovermenu.winner("¡¡¡Manni Wins!!!")
 
 func PowerCard(value):
 	match value:
 		1:
+			#print(turn)
 			if turn:
 				turn = false
 			else:
@@ -177,17 +198,17 @@ func PowerCard(value):
 				opponentTimer.start(0.9)
 		2:
 			if turn:
-				opponent_life -= 1
+				opponent_life-=1
 				opponent.text = str(opponent_life)
 			else:
-				player_life -= 1
+				player_life-=1
 				player.text = str(player_life)
 		3:
 			if turn:
-				player_life +=1
+				player_life+=1
 				player.text = str(player_life)
 			else:
-				opponent_life += 1
+				opponent_life+=1
 				opponent.text = str(opponent_life)
 		4:
 			if turn:
@@ -195,7 +216,33 @@ func PowerCard(value):
 			else:
 				PowerCard(random.randi_range(1,3))
 		5:
-			pass
+			var roulette = $Roulette
+			var random1 = random.randi_range(1,15)
+			var count = 1
+			for i in random1:
+				get_tree().paused = true
+				rouletteTimer.start(0.5)
+				roulette.texture = load("res://assets/lucky-roulette/pin"+str(count)+".png")
+				count += 1
+				if count > 5:
+					count = 1
+				print(count)
+			match count:
+				4:
+					if true:
+						opponent_life-=2
+						opponent.text = str(opponent_life)
+					else:
+						player_life-=2
+						player.text = str(player_life)
+				5:
+					if true:
+						player_life-=2
+						player.text = str(player_life)
+					else:
+						opponent_life-=2
+						opponent.text = str(opponent_life)
+			get_tree().paused = false
 
 func CardOptions4():
 	var container = $CardOptions4/HBoxContainer
@@ -204,21 +251,22 @@ func CardOptions4():
 			button.pressed.connect(func(): pressed_action(button.name))
 
 func CardOptions4pop():
-	$CardOptions4.popup_centered(Vector2(450, 150))
+	powerups.show()
 	get_tree().paused = true
 
 func pressed_action(b):
 	match b:
-		"club":
-			PowerCard(1)
 		"spade":
 			PowerCard(2)
 		"heart":
 			PowerCard(3)
 	get_tree().paused = false
-	$CardOptions4.hide()
+	powerups.hide()
 
-func turnOverCards():
+func rouletteShot():
+	pass
+
+func flipCards():
 	c1.flip()
 	c2.flip()
 	c1.set_disabled(false)
@@ -226,7 +274,7 @@ func turnOverCards():
 	c1 = null
 	c2 = null
 
-func matchCardsAndScore():
+func matchCards():
 	c1.set_modulate(Color(0.6,0.6,0.6,0.5))
 	c2.set_modulate(Color(0.6,0.6,0.6,0.5))
 	c1 = null

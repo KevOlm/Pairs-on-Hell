@@ -1,26 +1,25 @@
 [gd_scene load_steps=13 format=3 uid="uid://dbiub12o6si7t"]
 
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_w7frw"]
-[ext_resource type="Texture2D" uid="uid://bqe3pm623mivb" path="res://assets/background.png" id="2_if7l8"]
+[ext_resource type="Texture2D" uid="uid://y6a6xmq34syq" path="res://assets/background2.png" id="2_8l867"]
 [ext_resource type="Texture2D" uid="uid://b4p0v10neafsx" path="res://assets/Mammon.png" id="3_iuli0"]
-[ext_resource type="Texture2D" uid="uid://cncbdjowu6tud" path="res://assets/1.png" id="4_4wo6t"]
+[ext_resource type="Texture2D" uid="uid://c1unyrybd1k2u" path="res://assets/player.png" id="4_mhduo"]
 [ext_resource type="Texture2D" uid="uid://chy6uvpkfrocg" path="res://assets/2.png" id="5_oc152"]
 [ext_resource type="Texture2D" uid="uid://btopifhnvfet4" path="res://assets/3.png" id="6_l3m8x"]
 [ext_resource type="PackedScene" uid="uid://djgk3ehy4e8a0" path="res://scenes/pause_menu.tscn" id="7_aaeek"]
 [ext_resource type="PackedScene" uid="uid://c4s1t1i8nb8vg" path="res://scenes/game_over.tscn" id="8_facxe"]
 
-[sub_resource type="Gradient" id="Gradient_nqtup"]
-offsets = PackedFloat32Array(0, 0.32973, 0.686486, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.235543, 0.028682, 0, 1, 0.235294, 0.027451, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mmap1"]
-gradient = SubResource("Gradient_nqtup")
-
-[sub_resource type="SystemFont" id="SystemFont_88tvj"]
+[sub_resource type="SystemFont" id="SystemFont_xqwtv"]
 font_names = PackedStringArray("Joystix Monospace")
 
-[sub_resource type="Theme" id="Theme_58dmx"]
-default_font = SubResource("SystemFont_88tvj")
+[sub_resource type="SystemFont" id="SystemFont_f58ss"]
+font_names = PackedStringArray("Joystix Monospace")
+
+[sub_resource type="SystemFont" id="SystemFont_66ydd"]
+font_names = PackedStringArray("Joystix Monospace")
+
+[sub_resource type="SystemFont" id="SystemFont_6rr8h"]
+font_names = PackedStringArray("Joystix Monospace")
 
 [node name="table8_5" type="Control"]
 layout_mode = 3
@@ -31,30 +30,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w7frw")
 
-[node name="ColorRect" type="TextureRect" parent="."]
+[node name="TextureRect2" type="TextureRect" parent="."]
+texture_filter = 1
+texture_repeat = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_mmap1")
-expand_mode = 3
-
-[node name="TextureRect2" type="TextureRect" parent="."]
-texture_filter = 1
-texture_repeat = 2
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -306.0
-offset_right = 306.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_if7l8")
+texture = ExtResource("2_8l867")
+expand_mode = 2
 stretch_mode = 6
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 40.0
+offset_right = 147.0
+offset_bottom = 123.0
+texture = ExtResource("3_iuli0")
+stretch_mode = 5
 
 [node name="tablegrid" type="GridContainer" parent="."]
 layout_mode = 1
@@ -63,107 +59,73 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -254.0
-offset_top = -152.0
-offset_right = 258.0
-offset_bottom = 172.0
+offset_left = -148.0
+offset_top = -210.0
+offset_right = 485.0
+offset_bottom = 211.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 8
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -70.0
-offset_top = 16.0
-offset_right = 70.0
-offset_bottom = 156.0
-grow_horizontal = 2
-texture = ExtResource("3_iuli0")
+[node name="Player2" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 59.0
+offset_top = 322.0
+offset_right = 147.0
+offset_bottom = 409.0
+texture = ExtResource("4_mhduo")
 stretch_mode = 5
 
-[node name="CardOptions4" type="Popup" parent="."]
-process_mode = 3
-initial_position = 2
-size = Vector2i(450, 150)
-content_scale_mode = 1
-content_scale_aspect = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CardOptions4"]
-texture_filter = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="club" type="TextureButton" parent="CardOptions4/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = ExtResource("4_4wo6t")
-stretch_mode = 6
-
-[node name="spade" type="TextureButton" parent="CardOptions4/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = ExtResource("5_oc152")
-stretch_mode = 6
-
-[node name="heart" type="TextureButton" parent="CardOptions4/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = ExtResource("6_l3m8x")
-stretch_mode = 6
-
-[node name="Players_Life" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -289.0
-offset_top = -102.0
-offset_right = 289.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = SubResource("Theme_58dmx")
-theme_override_constants/separation = 0
-
-[node name="Player" type="VBoxContainer" parent="Players_Life"]
-layout_mode = 2
+[node name="Player" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 407.0
+offset_right = 167.0
+offset_bottom = 525.0
 size_flags_horizontal = 7
 size_flags_vertical = 5
 
-[node name="Title" type="Label" parent="Players_Life/Player"]
-layout_mode = 2
-text = "PLAYER'S LIFE"
-horizontal_alignment = 1
-
-[node name="Score" type="Label" parent="Players_Life/Player"]
+[node name="Score" type="Label" parent="Player"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 30
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = SubResource("SystemFont_xqwtv")
+theme_override_font_sizes/font_size = 36
 text = "##"
 horizontal_alignment = 1
 vertical_alignment = 3
 
-[node name="Opponent" type="VBoxContainer" parent="Players_Life"]
+[node name="Title" type="Label" parent="Player"]
 layout_mode = 2
-size_flags_horizontal = 7
-
-[node name="Title" type="Label" parent="Players_Life/Opponent"]
-layout_mode = 2
-text = "MANI'S LIFE"
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = SubResource("SystemFont_f58ss")
+text = "PLAYER"
 horizontal_alignment = 1
 
-[node name="Score" type="Label" parent="Players_Life/Opponent"]
+[node name="Opponent" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 121.0
+offset_right = 164.0
+offset_bottom = 233.0
+size_flags_horizontal = 7
+
+[node name="Score" type="Label" parent="Opponent"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 30
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = SubResource("SystemFont_66ydd")
+theme_override_font_sizes/font_size = 36
 text = "##"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="Opponent"]
+layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = SubResource("SystemFont_6rr8h")
+text = "MANNI"
 horizontal_alignment = 1
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
@@ -177,3 +139,36 @@ visible = false
 
 [node name="GameOver" parent="GameOver" instance=ExtResource("8_facxe")]
 process_mode = 3
+
+[node name="CardOptions4" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardOptions4"]
+texture_filter = 1
+custom_minimum_size = Vector2(300, 150)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -16.0
+offset_right = 34.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="spade" type="TextureButton" parent="CardOptions4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("5_oc152")
+stretch_mode = 6
+
+[node name="heart" type="TextureButton" parent="CardOptions4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("6_l3m8x")
+stretch_mode = 6
